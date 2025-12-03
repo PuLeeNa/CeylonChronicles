@@ -26,6 +26,17 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
+            - name: Create Netlify config
+              run: |
+                  cat > netlify.toml << EOF
+                  [build]
+                    command = "npm run build"
+                    publish = ".next"
+
+                  [[plugins]]
+                    package = "@netlify/plugin-nextjs"
+                  EOF
+
             - name: Build application
               run: npm run build
               env:
@@ -37,13 +48,14 @@ jobs:
             - name: Deploy to Netlify
               uses: nwtgck/actions-netlify@v3.0
               with:
-                  publish-dir: "./.next"
+                  publish-dir: ".next"
                   production-branch: main
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   deploy-message: "Deploy from GitHub Actions - ${{ github.event.head_commit.message }}"
                   enable-pull-request-comment: true
                   enable-commit-comment: true
                   overwrites-pull-request-comment: true
+                  functions-dir: ".netlify/functions-internal"
               env:
                   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
                   NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
