@@ -6,12 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "seed": "ts-node ./scripts/loadDb.ts",
     "lint": "eslint"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.4",
+    "@langchain/community": "^1.0.6",
+    "@langchain/core": "^1.1.1",
+    "@langchain/groq": "^1.0.2",
+    "@langchain/pinecone": "^1.0.1",
+    "@pinecone-database/pinecone": "^5.1.2",
     "next": "16.0.6",
+    "puppeteer": "^24.32.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^20",
