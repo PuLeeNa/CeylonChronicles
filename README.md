@@ -1,40 +1,210 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🏛️ Ceylon Chronicles
 
-## Getting Started
+An AI-powered conversational assistant that provides intelligent insights about Sri Lankan history through Retrieval-Augmented Generation (RAG). Ask questions about prehistoric times, ancient kingdoms, colonial periods, and modern Sri Lankan history.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![LangChain](https://img.shields.io/badge/LangChain-Latest-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+## ✨ Features
+
+- 🤖 **AI-Powered Chat**: Real-time conversational interface using Groq LLM
+- 🔍 **Semantic Search**: Vector-based search with Pinecone for accurate historical information
+- 📚 **Comprehensive Knowledge Base**: 16+ Wikipedia articles on Sri Lankan history
+- ⚡ **Streaming Responses**: Fast, streaming AI responses for better UX
+- 🎨 **Beautiful UI**: Custom-designed interface with historical Sri Lankan themes
+- 🚀 **Auto-Deploy**: CI/CD pipeline with GitHub Actions to Netlify and Render
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+
+- Next.js 16 (App Router)
+- TypeScript
+- React 19
+- AI SDK (@ai-sdk/react)
+
+**Backend & AI:**
+
+- LangChain
+- Groq AI (LLM)
+- Pinecone (Vector Database)
+- HuggingFace Embeddings (all-MiniLM-L6-v2)
+
+**Data Pipeline:**
+
+- Puppeteer (Web Scraping)
+- LangChain Document Loaders
+- Recursive Character Text Splitter
+
+**DevOps:**
+
+- Docker
+- GitHub Actions
+- Netlify (Staging)
+- Render (Production)
+
+## 📋 Prerequisites
+
+- Node.js 22.x or higher
+- npm or yarn
+- Pinecone account ([Get Free API Key](https://app.pinecone.io/))
+- HuggingFace account ([Get Free API Key](https://huggingface.co/settings/tokens))
+- Groq account ([Get Free API Key](https://console.groq.com/))
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/PuLeeNa/CeylonChronicles.git
+cd CeylonChronicles/ceylonchronicles
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+
+Create a `.env` file in the root directory:
+
+```env
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_INDEX=ceylonchronicles
+HUGGINGFACE_API_KEY=your_huggingface_token
+GROQ_API_KEY=your_groq_api_key
+```
+
+### 4. Create Pinecone Index
+
+1. Go to [Pinecone Console](https://app.pinecone.io/)
+2. Create a new index with:
+   - **Name**: `ceylonchronicles`
+   - **Dimension**: `384`
+   - **Metric**: `cosine`
+
+### 5. Load historical data into vector database
+
+```bash
+npm run seed
+```
+
+This will:
+
+- Scrape 16 Wikipedia articles about Sri Lankan history
+- Split content into chunks (512 characters with 100 overlap)
+- Generate embeddings using HuggingFace
+- Store vectors in Pinecone
+
+### 6. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```
+ceylonchronicles/
+├── app/
+│   ├── api/
+│   │   └── chat/
+│   │       └── route.ts          # Chat API endpoint
+│   ├── components/
+│   │   ├── Bubble.tsx            # Chat message bubble
+│   │   ├── LoadingBubble.tsx     # Loading indicator
+│   │   └── PromptSuggestionRow.tsx
+│   ├── assets/                   # Images and static files
+│   ├── global.css                # Global styles
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Main chat interface
+├── scripts/
+│   └── loadDb.ts                 # Data loading script
+├── .github/
+│   └── workflows/
+│       └── deploy.yml            # CI/CD pipeline
+├── Dockerfile                    # Docker configuration
+├── render.yaml                   # Render deployment config
+├── netlify.toml                  # Netlify deployment config
+└── next.config.ts                # Next.js configuration
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🐳 Docker Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build and run with Docker:
 
-## Learn More
+```bash
+docker build -t ceylon-chronicles .
+docker run -p 3000:3000 --env-file .env ceylon-chronicles
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 CI/CD Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+The project includes automated deployment to both Netlify and Render. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Quick Deploy Steps:
 
-## Deploy on Vercel
+1. Add GitHub secrets (see [DEPLOYMENT.md](./DEPLOYMENT.md))
+2. Push to main branch:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+git add .
+git commit -m "Deploy application"
+git push origin main
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 📝 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run seed` - Load historical data into vector database
+- `npm run lint` - Run ESLint
+
+## 🎯 Usage Example
+
+Ask questions like:
+
+- "Tell me about the Anuradhapura Kingdom"
+- "What happened during the British Ceylon period?"
+- "Who were the ancient kings of Sri Lanka?"
+- "Explain the Polonnaruwa period"
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 👨‍💻 Author
+
+**PuLeeNa**
+
+- GitHub: [@PuLeeNa](https://github.com/PuLeeNa)
+- Repository: [CeylonChronicles](https://github.com/PuLeeNa/CeylonChronicles)
+
+## 🙏 Acknowledgments
+
+- Historical data sourced from Wikipedia
+- Built with [Next.js](https://nextjs.org/)
+- AI powered by [Groq](https://groq.com/)
+- Vector database by [Pinecone](https://www.pinecone.io/)
+- Embeddings by [HuggingFace](https://huggingface.co/)
+
+---
+
+⭐ Star this repository if you find it helpful!
