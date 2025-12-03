@@ -3,11 +3,14 @@ import Image from "next/image";
 import logoo from "./assets/logoo.png";
 import { useChat } from "@ai-sdk/react";
 import type { UIMessage } from "ai";
+import Bubble from "./components/Bubble";
+import LoadingBubble from "./components/LoadingBubble";
+import PromptSuggestionRow from "./components/PromptSuggestionRow";
 
 export default function Home() {
     const { input, handleInputChange, handleSubmit, append, isLoading, messages } = useChat()
 
-    const noMessage = true
+    const noMessage = false
   return (
     <main>
       <Image src={logoo} alt="Logo" width={300} height={50} />
@@ -18,11 +21,12 @@ export default function Home() {
                 Welcome to Ceylon Chronicles! Ask me anything about the rich history of Sri Lanka. You can explore historical insights from the prehistoric era to modern times 
             </p>
             <br/>
-            {/* <PromptSuggestionRow/> */}
+            <PromptSuggestionRow onPromptClick={onPromptClick}/>
             </>
         ) : (
             <>
-            {/* <LoadingBubbles/> */}
+            {messages.map((message: UIMessage, index: number) => <Bubble key={`message-${index}`} message={message} />)}
+            {isLoading && <LoadingBubble/>}
             </>
         )}
       </section>
