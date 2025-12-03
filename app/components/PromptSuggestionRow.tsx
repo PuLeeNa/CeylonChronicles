@@ -12,7 +12,7 @@ const PromptSuggestionRow = ({ onPromptClick }: any) => {
   return (
     <div className="prompt-suggestion-row">
       {prompts.map((prompt, index) => (
-        <PromptSuggestionButton key={`suggestion-${index}`} text={prompt} onClick={onPromptClick}/>
+        <PromptSuggestionButton key={`suggestion-${index}`} text={prompt} onClick={() => onPromptClick(prompt)}/>
       ))}
     </div>
   );

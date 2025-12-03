@@ -10,7 +10,17 @@ import PromptSuggestionRow from "./components/PromptSuggestionRow";
 export default function Home() {
     const { input, handleInputChange, handleSubmit, append, isLoading, messages } = useChat()
 
-    const noMessage = false
+    const handlePrompt = ( promptText : string ) => {
+        const msg: UIMessage = {
+            id: crypto.randomUUID(),
+            content: promptText,
+            role: "user"
+        }
+        append(msg)
+    }
+
+    const noMessage = !messages || messages.length === 0;
+
   return (
     <main>
       <Image src={logoo} alt="Logo" width={300} height={50} />
@@ -21,7 +31,7 @@ export default function Home() {
                 Welcome to Ceylon Chronicles! Ask me anything about the rich history of Sri Lanka. You can explore historical insights from the prehistoric era to modern times 
             </p>
             <br/>
-            <PromptSuggestionRow onPromptClick={onPromptClick}/>
+            <PromptSuggestionRow onPromptClick={handlePrompt}/>
             </>
         ) : (
             <>

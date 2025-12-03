@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Bubble = () => {
+const Bubble = ({ message }: any) => {
+    const { content, role } = message;
   return (
-    <div className="bubble">
-      
+    <div className={`${role} bubble`}>
+      {content}
     </div>
   )
 }
