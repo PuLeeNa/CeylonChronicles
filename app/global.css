@@ -5,18 +5,21 @@
 body {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background-image: url('./assets/background.png');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
 }
 
 main {
     width: 80vw;
-    height: 80vh;
+    max-width: 1200px;
+    min-height: 80vh;
     background: linear-gradient(
         to bottom,
         rgba(244, 232, 200, 0.3),
@@ -25,25 +28,27 @@ main {
     border-radius: 15px;
     backdrop-filter: blur(2px);
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: space-between;
     padding: 20px;
     text-align: center;
     color: #000000;
     font-weight: 500;
+    margin: 20px 0;
 }
 
 section {
-    width : 100%;
-}
-
-section.poplated {
-    height: 100%;
+    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    overflow: scroll;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+section.populated {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .startter-text {
@@ -56,8 +61,10 @@ form {
     display: flex;
     border-top: #828282 solid 2px;
     padding-top: 20px;
+    margin-top: 20px;
     border-radius: 0 0 10px 10px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 input.question-box {
@@ -83,36 +90,111 @@ input:focus {
 
 .bubble {
     margin: 8px;
-    padding: 8px;
+    padding: 16px 20px;
     font-size: 15px;
     border: none;
     color: #383838;
     box-shadow: #959da533 0 8px 24px;
     width: 80%;
     text-align: left;
+    line-height: 1.6;
 }
 
 .bubble.user {
     border-radius: 20px 30px 0 20px;
-    background-color: #E1F4FFFF;
+    background-color: #f4e8d0b9;
     margin-left: auto;
 }
 
 .bubble.assistant {
     border-radius: 20px 20px 20px 0;
-    background-color: #dce7ff;
+    background-color: #f4e8d0c1;
+}
+
+/* Markdown styling within bubbles */
+.bubble h1, .bubble h2, .bubble h3, .bubble h4 {
+    margin: 12px 0 8px 0;
+    color: #2c1810;
+    font-weight: 600;
+}
+
+.bubble h1 { font-size: 1.5em; }
+.bubble h2 { font-size: 1.3em; }
+.bubble h3 { font-size: 1.2em; }
+.bubble h4 { font-size: 1.1em; }
+
+.bubble p {
+    margin: 8px 0;
+    line-height: 1.7;
+}
+
+.bubble ul, .bubble ol {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+.bubble li {
+    margin: 6px 0;
+    line-height: 1.6;
+}
+
+.bubble strong {
+    color: #2c1810;
+    font-weight: 600;
+}
+
+.bubble code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.bubble pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.bubble pre code {
+    background: none;
+    padding: 0;
+}
+
+.prompt-sugestion-row {
+    width: 100%;
+}
+
+.prompt-suggestion-button {
+    margin: 8px;
+    padding: 8px;
+    font-size: 15px;
+    border: none;
+    background-color: #e8dcc4;
+    border-radius: 10px;
+    color: #3d2817;
+    box-shadow: #959da533 0 8px 24px;
+    transition: all 0.3s ease;
+}
+
+.prompt-suggestion-button:hover {
+    background-color: #d4c4a8;
+    transform: translateY(-2px);
+    box-shadow: #959da555 0 10px 28px;
+    cursor: pointer;
 }
 
 .loader {
     margin: 10px;
-    margin-top: 300px;
     width: 60px;
     aspect-ratio: 4;
     background:
         no-repeat radial-gradient(circle closest-side, #383838 90%, #0000) 0 50%,
         no-repeat radial-gradient(circle closest-side, #383838 90%, #0000) 50% 50%,
         no-repeat radial-gradient(circle closest-side, #383838 90%, #0000) 100% 50%;
-    ;
     background-size: calc(100%/3) 100%;
     animation: loading 1s infinite linear;
 }

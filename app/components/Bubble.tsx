@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
+import ReactMarkdown from "react-markdown";
 
 const Bubble = ({ message }: any) => {
-    const { content, role } = message;
+  const { content, role } = message;
   return (
     <div className={`${role} bubble`}>
-      {content}
+      <ReactMarkdown>{content}</ReactMarkdown>
     </div>
-  )
-}
+  );
+};
 
-export default Bubble
+export default Bubble;

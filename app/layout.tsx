@@ -4,6 +4,9 @@ export const metadata = {
   title: "Ceylon Chronicles",
   description:
     "Explore the rich history of Sri Lanka with Ceylon Chronicles, your AI-powered companion for historical insights and narratives.",
+  icons: {
+    icon: "./assets/logo.png",
+  },
 };
 
 export default function RootLayout({
