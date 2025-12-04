@@ -1,5 +1,9 @@
 # 🏛️ Ceylon Chronicles
 
+## 🌐 Live Demo
+
+**Try it now:** [https://ceylon-chronicles.netlify.app](https://ceylon-chronicles.netlify.app)
+
 An AI-powered conversational assistant that provides intelligent insights about Sri Lankan history through Retrieval-Augmented Generation (RAG). Ask questions about prehistoric times, ancient kingdoms, colonial periods, and modern Sri Lankan history.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
