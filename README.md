@@ -9,7 +9,6 @@ An AI-powered conversational assistant that provides intelligent insights about 
 ![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![LangChain](https://img.shields.io/badge/LangChain-Latest-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## ✨ Features
 
@@ -27,7 +26,6 @@ An AI-powered conversational assistant that provides intelligent insights about 
 - Next.js 16 (App Router)
 - TypeScript
 - React 19
-- AI SDK (@ai-sdk/react)
 
 **Backend & AI:**
 
@@ -189,10 +187,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
