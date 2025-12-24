@@ -6,33 +6,38 @@
 
 An AI-powered conversational assistant that provides intelligent insights about Sri Lankan history through Retrieval-Augmented Generation (RAG). Ask questions about prehistoric times, ancient kingdoms, colonial periods, and modern Sri Lankan history.
 
-![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
+![Next.js](https://img.shields.io/badge/Next.js-16.0.10-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![LangChain](https://img.shields.io/badge/LangChain-Latest-green)
+![React](https://img.shields.io/badge/React-19.2-blue)
+![LangChain](https://img.shields.io/badge/LangChain-0.3.13-green)
+![Node.js](https://img.shields.io/badge/Node.js-18--22-green)
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Chat**: Real-time conversational interface using Groq LLM
-- 🔍 **Semantic Search**: Vector-based search with Pinecone for accurate historical information
-- 📚 **Comprehensive Knowledge Base**: 16+ Wikipedia articles on Sri Lankan history
-- ⚡ **Streaming Responses**: Fast, streaming AI responses for better UX
-- 🎨 **Beautiful UI**: Custom-designed interface with historical Sri Lankan themes
-- 🚀 **Auto-Deploy**: CI/CD pipeline with GitHub Actions to Netlify and Render
+- 🤖 **AI-Powered Chat**: Intelligent conversational interface powered by Groq's Llama 3.3 70B model
+- 🔍 **RAG Architecture**: Retrieval-Augmented Generation with Pinecone vector database for accurate context-aware responses
+- 📚 **Comprehensive Knowledge Base**: 16 curated Wikipedia articles covering Sri Lankan history from prehistoric to modern times
+- 💬 **Interactive UI**: Clean, responsive chat interface with message bubbles and loading indicators
+- 📝 **Markdown Support**: Rich text formatting in responses for better readability
+- 🎯 **Smart Prompts**: Pre-built prompt suggestions to help users get started
+- 🚀 **Production Ready**: Deployable to Netlify with Docker support
 
 ## 🛠️ Tech Stack
 
 **Frontend:**
 
-- Next.js 16 (App Router)
-- TypeScript
-- React 19
+- Next.js 16.0.10 (App Router)
+- TypeScript 5
+- React 19.2
+- React Markdown (for rendering formatted responses)
 
 **Backend & AI:**
 
-- LangChain
-- Groq AI (LLM)
-- Pinecone (Vector Database)
-- HuggingFace Embeddings (all-MiniLM-L6-v2)
+- LangChain 0.3 (Document Processing, RAG Pipeline)
+- Groq AI (Llama 3.3 70B Versatile)
+- Pinecone 5.1 (Vector Database)
+- HuggingFace Embeddings (sentence-transformers/all-MiniLM-L6-v2)
+- Vercel AI SDK (UI State Management)
 
 **Data Pipeline:**
 
@@ -42,15 +47,14 @@ An AI-powered conversational assistant that provides intelligent insights about 
 
 **DevOps:**
 
-- Docker
-- GitHub Actions
-- Netlify (Staging)
-- Render (Production)
+- Github Actions
+- Docker (Containerization)
+- Netlify (Deployment Platform)
 
 ## 📋 Prerequisites
 
-- Node.js 22.x or higher
-- npm or yarn
+- Node.js 18.x to 22.x (Node 22 recommended)
+- npm (comes with Node.js)
 - Pinecone account ([Get Free API Key](https://app.pinecone.io/))
 - HuggingFace account ([Get Free API Key](https://huggingface.co/settings/tokens))
 - Groq account ([Get Free API Key](https://console.groq.com/))
@@ -97,10 +101,10 @@ npm run seed
 
 This will:
 
-- Scrape 16 Wikipedia articles about Sri Lankan history
-- Split content into chunks (512 characters with 100 overlap)
-- Generate embeddings using HuggingFace
-- Store vectors in Pinecone
+- Scrape 16 Wikipedia articles about Sri Lankan history (from Prehistory to Modern Sri Lanka)
+- Split content into chunks using RecursiveCharacterTextSplitter (512 characters with 100 character overlap)
+- Generate 384-dimensional embeddings using HuggingFace's all-MiniLM-L6-v2 model
+- Store vectors in Pinecone with metadata for retrieval
 
 ### 6. Run the development server
 
@@ -146,20 +150,21 @@ docker build -t ceylon-chronicles .
 docker run -p 3000:3000 --env-file .env ceylon-chronicles
 ```
 
-## 🚀 CI/CD Deployment
+## 🚀 Deployment
 
-The project includes automated deployment to both Netlify and Render. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
+### Deploy to Netlify
 
-### Quick Deploy Steps:
+The project is configured for deployment to Netlify with the Next.js plugin:
 
-1. Add GitHub secrets (see [DEPLOYMENT.md](./DEPLOYMENT.md))
-2. Push to main branch:
+1. Connect your GitHub repository to Netlify
+2. Configure environment variables in Netlify dashboard:
+   - `PINECONE_API_KEY`
+   - `PINECONE_INDEX`
+   - `HUGGINGFACE_API_KEY`
+   - `GROQ_API_KEY`
+3. Deploy automatically on push to main branch
 
-```bash
-git add .
-git commit -m "Deploy application"
-git push origin main
-```
+The `netlify.toml` file is pre-configured with Node.js 22 and the Next.js plugin.
 
 ## 📝 Available Scripts
 
@@ -169,6 +174,15 @@ git push origin main
 - `npm run seed` - Load historical data into vector database
 - `npm run lint` - Run ESLint
 
+## 🔧 How It Works
+
+1. **User Input**: User asks a question about Sri Lankan history
+2. **Vector Search**: Question is embedded and searched against Pinecone vector database
+3. **Context Retrieval**: Top 5 most relevant document chunks are retrieved
+4. **RAG Chain**: LangChain combines retrieved context with user question
+5. **LLM Generation**: Groq's Llama 3.3 70B generates a contextualized response
+6. **Response Display**: Answer is rendered with markdown formatting
+
 ## 🎯 Usage Example
 
 Ask questions like:
@@ -177,16 +191,7 @@ Ask questions like:
 - "What happened during the British Ceylon period?"
 - "Who were the ancient kings of Sri Lanka?"
 - "Explain the Polonnaruwa period"
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- "What is the history of the Kandyan Kingdom?"
 
 ## 👨‍💻 Author
 
@@ -195,11 +200,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - GitHub: [@PuLeeNa](https://github.com/PuLeeNa)
 - Repository: [CeylonChronicles](https://github.com/PuLeeNa/CeylonChronicles)
 
+
 ## 🙏 Acknowledgments
 
 - Historical data sourced from Wikipedia
 - Built with [Next.js](https://nextjs.org/)
-- AI powered by [Groq](https://groq.com/)
+- AI powered by [Groq](https://groq.com/) (Llama 3.3 70B)
 - Vector database by [Pinecone](https://www.pinecone.io/)
 - Embeddings by [HuggingFace](https://huggingface.co/)
 
